@@ -163,7 +163,7 @@
             <p class="ednote"> the following is just a draft description of the Entity class
             </p>
             A more user-friendly property to specify [[[#functioncode]]] or [[[#functionname]]]. The client will then determine the right function code to be applied in
-            the modbus request. Futhermore, it can be used in multi-operation forms whereas <code>modv:function</code> cannot (See the
+            the modbus request. Futhermore, it can be used in multi-operation forms whereas <code>modbus:function</code> cannot (See the
             [[[#example-read-coil-entity]]])
             
             <table class="def" title="Entity values">
@@ -201,7 +201,7 @@
         
                 </tbody>
             </table>
-            <b>Notice</b> that when used in conjunction with <code>modv:function</code>, the value of <code>modv:function</code> property is ignored.
+            <b>Notice</b> that when used in conjunction with <code>modbus:function</code>, the value of <code>modbus:function</code> property is ignored.
         </section>
         <section id="functioncode">
             <h3>Function Code</h3>
@@ -531,7 +531,7 @@
                   "@context": [
                       "https://www.w3.org/2019/wot/td/v1",
                       {
-                          "modv": "https://www.example.com/ns/modbustcp"
+                          "modbus": "https://www.example.com/ns/modbustcp"
                       }
                   ],
                   "title": "ModbusPLC",
@@ -554,10 +554,10 @@
                               {
                                   "op": "readproperty",
                                   "href": "modbus+tcp://192.168.178.32:502/10003",
-                                  "modv:function": "2",
-                                  "modv:length": 1,
-                                  "modv:offset": "10003",
-                                  "modv:unitID": "1",
+                                  "modbus:function": "2",
+                                  "modbus:length": 1,
+                                  "modbus:offset": "10003",
+                                  "modbus:unitID": "1",
                                   "contentType": "application/octet-stream"
                               }
                           ]
@@ -570,10 +570,10 @@
                               {
                                   "op": "readproperty",
                                   "href": "modbus+tcp://192.168.178.32:502/10002",
-                                  "modv:function": "readDiscreteInput",
-                                  "modv:length": 1,
-                                  "modv:offset": "10002",
-                                  "modv:unitID": "1",
+                                  "modbus:function": "readDiscreteInput",
+                                  "modbus:length": 1,
+                                  "modbus:offset": "10002",
+                                  "modbus:unitID": "1",
                                   "contentType": "application/octet-stream"
                               }
                           ]
@@ -590,11 +590,11 @@
                                       "readproperty"
                                   ],
                                   "href": "modbus+tcp://192.168.178.32:502/00006",
-                                  "modv:entity": "Coil",
-                                  "modv:length": 1,
-                                  "modv:offset": "00006",
-                                  "modv:unitID": "1",
-                                  "modv:pollingTime": 100,
+                                  "modbus:entity": "Coil",
+                                  "modbus:length": 1,
+                                  "modbus:offset": "00006",
+                                  "modbus:unitID": "1",
+                                  "modbus:pollingTime": 100,
                                   "contentType": "application/octet-stream"
                               }
                           ]
@@ -611,11 +611,11 @@
                                       "readproperty"
                                   ],
                                   "href": "modbus+tcp://192.168.178.32:502/00003",
-                                  "modv:entity": "Coil",
-                                  "modv:length": 1,,
-                                  "modv:offset": "00003",
-                                  "modv:unitID": "1",
-                                  "modv:pollingRate": 100,
+                                  "modbus:entity": "Coil",
+                                  "modbus:length": 1,,
+                                  "modbus:offset": "00003",
+                                  "modbus:unitID": "1",
+                                  "modbus:pollingRate": 100,
                                   "contentType": "application/octet-stream"
                               }
                           ]

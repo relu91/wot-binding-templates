@@ -4,4 +4,5 @@ binding template specific documentation. Each sub-folder must provide:
 - index.html based on [index.template.html](/index.template.html)
 - shacl file that describes which ontology terms can be used and how
 - context.jsonld file containing the related jsonld `@context` definition
+- binding.schema.json file containing the JSONSchema of the binding. Used for validation. 
 

@@ -24,7 +24,8 @@
                         href: "https://github.com/w3c/wot-binding-templates/graphs/contributors"
                     }]
                 }
-            ]
+            ],
+            localBiblio: {}
         };
     </script>
     <title>MODBUS binding template</title>
@@ -51,7 +52,7 @@
             a shift on how applications pack the information. Today it is usual to store and read any type of data in the Holdings Registers like bit,bytes,words, float etc.
         </p>
         <p>
-            This document describes how the Web of Things specification can be use to present devices that use the ModBus protocol in a <a>Thing Description</a>. In 
+            This document describes how the Web of Things specification can be use to present devices that use the ModBus protocol in a <a href="https://w3c.github.io/wot-architecture/#sec-thing-description">Thing Description</a>. In 
             particular, the document explain how to create valid URLs and Forms for the different operations that the ModBus protocol can perform. Developers are 
             encouraged to use this document as an implementation guidelines and as a reference for the creation of their own binding implementations. The following sections
             will cover the URL format, the Vocabulary and a list of Form examples. 
@@ -64,12 +65,26 @@
     </section>
     <section id="url">
         <h2>URL format</h2>
+        Historically different URL scheme has been used inside the ModBus community: <code>modbus+tpc://</code>, <code>modbus+ascii://</code> and <code>modbus+rtu://</code>.
+        Considering that in Web of Things context all protocol bindings are required to at least support the Internet Protocol, for the Modbus protocol <code>modbus+tcp://</code> 
+        was selected as the only valid URL scheme. The following shows the typical structure of an URL of the ModBus protocol:
         <pre>
             modbus+tcp://{address}:{port}/{?unitID}
         </pre>
+
+        <p>
+            Where:
+            <ul>
+                <li><code>{address}</code> is the IP address of the ModBus device</li>
+                <li><code>{port}</code> is the port of the ModBus device</li>
+                <li><code>{unitID}</code> is the unit ID of the ModBus device. See <a href="#vocabulary">vocabulary</a></li>
+            </ul>
+        </p>
     </section>
     <section id="vocabulary">
         <h2>Modbus Vocabulary</h2>
+        This section describes the vocabulary used in the ModBus protocol. A protocol binding implementation should use the vocabulary defined in this section to
+        describe the different configuration that can be used to exchanged data between Web of Things.
         <section>
             <h3>Form terms</h3>
             <table class="def">
@@ -209,11 +224,12 @@
             </p>
             Function Code class represent the value of the function field in a Modbus frame. The 
             following table list the supported codes and their description:
-            <table class="def" title="Entity values">
+            <table class="def" title="Function values">
                 <thead>
                     <tr>
                         <th>Value</th>
                         <th>Label</th>
+                        <th>Code</th>
                         <th>Description</th>
                     </tr>
                 </thead>
@@ -222,21 +238,24 @@
                     
         <tr>
             <td><code>readCoil</code></td>
-            <td>Read Single Coils</td>
+            <td>Read Single Coil</td>
+            <td>1</td>
             <td>Read a single coil (i.e. boolean/bit access) value. Usually in the address range 00001-09999</td>
         <tr>
         
 
         <tr>
-            <td><code>readDevicieIdentification</code></td>
+            <td><code>readDeviceIdentification</code></td>
             <td>Read Device Identification</td>
-            <td>Read Device Identification for diagnostic purposes. Avaiable in the majority of Modbus implementations</td>
+            <td>43</td>
+            <td>Read Device Identification for diagnostic purposes. Avaiable in the majority of Modbus implementations.</td>
         <tr>
         
 
         <tr>
             <td><code>readDiscreteInput</code></td>
             <td>Read Discrete Inputs</td>
+            <td>2</td>
             <td>Read Physical Discrete Inputs (bit access). Address range 10001-19999</td>
         <tr>
         
@@ -244,6 +263,7 @@
         <tr>
             <td><code>readHoldingRegisters</code></td>
             <td>Read Multiple Holding Registers</td>
+            <td>3</td>
             <td>Read Multiple Holding Registers (16 bit access). Address range 40001-49999</td>
         <tr>
         
@@ -251,13 +271,15 @@
         <tr>
             <td><code>readInputRegisters</code></td>
             <td>Read Multiple Input Registers</td>
-            <td>Read Multiple Physica Input Registers (16 bits). Address range 30001-39999</td>
+            <td>4</td>
+            <td>Read Multiple Physical Input Registers (16 bits). Address range 30001-39999</td>
         <tr>
         
 
         <tr>
             <td><code>writeMultipleCoils</code></td>
             <td>Write Multiple Coils</td>
+            <td>15</td>
             <td>Write Multiple Physical Coils (internal bits). Address range 00001-09999</td>
         <tr>
         
@@ -265,6 +287,7 @@
         <tr>
             <td><code>writeMultipleHoldingRegisters</code></td>
             <td>Write Multiple Holding Registers</td>
+            <td>16</td>
             <td>Write Multiple Holding Registers (output registers, 16 bit). Address range 40001-49999</td>
         <tr>
         
@@ -272,13 +295,15 @@
         <tr>
             <td><code>writeSingleCoil</code></td>
             <td>Write Single Coil</td>
+            <td>5</td>
             <td>Write Single Physical Coil (internal bit). Address range 00001-09999</td>
         <tr>
         
 
         <tr>
             <td><code>writeSingleHoldingRegister</code></td>
-            <td>Write Single HoldingRegister</td>
+            <td>Write Single Holding Register</td>
+            <td>6</td>
             <td>Write Single HoldingRegister (internal bits). Address range 40001-49999</td>
         <tr>
         
@@ -288,7 +313,7 @@
     </section>
     <section id="mapppings">
         <h2>Mappings</h2>
-        <p>This section describes strategies and default values to employ protocol specific concepts within the <a>WoT Interaction
+        <p>This section describes strategies and default values to employ protocol specific concepts within the <a href="https://w3c.github.io/wot-architecture/#dfn-interaction-model">WoT Interaction
         model</a>. </p>
         <section id="defautl-mappings">
             <h3>Default mappings</h3>
@@ -472,7 +497,7 @@
                               {
                                   "op": "readproperty",
                                   "href": "modbus+tcp://192.168.178.32:502/10003",
-                                  "modbus:function": "2",
+                                  "modbus:function": "readDiscreteInput",
                                   "modbus:quantity": 1,
                                   "modbus:address": "10003",
                                   "modbus:unitID": 1,
